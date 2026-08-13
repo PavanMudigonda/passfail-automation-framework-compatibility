@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { test } from "node:test";
 import { createEvidenceEnvelope, createTestCheckEvaluation, parseTestResult } from "../scripts/publish-test-results.mjs";
+import { passfailRequestHeaders } from "../scripts/publish-auth.mjs";
 import { flattenFrameworkMatrix } from "../lib/frameworks.mjs";
 
 const matrix = JSON.parse(await readFile(new URL("../automation-framework-matrix.json", import.meta.url), "utf8"));
@@ -11,6 +12,19 @@ test("covers every automation framework matrix entry", () => {
   assert.equal(entries.length, 91);
   assert.equal(new Set(entries.map((entry) => entry.id)).size, entries.length);
   assert.deepEqual(new Set(entries.map((entry) => entry.executionSurface)), new Set(["Web automation", "Mobile automation"]));
+});
+
+test("scopes authenticated publication to the repository", () => {
+  assert.deepEqual(passfailRequestHeaders({
+    PASSFAIL_API_TOKEN: "secret-token",
+    PASSFAIL_PROJECT_ID: "passfail",
+    GITHUB_REPOSITORY: "PavanMudigonda/passfail-automation-framework-compatibility"
+  }, { "content-type": "application/json" }), {
+    "content-type": "application/json",
+    authorization: "Bearer secret-token",
+    "x-passfail-project-id": "passfail",
+    "x-passfail-repository-id": "passfail-automation-framework-compatibility"
+  });
 });
 
 for (const framework of entries) {

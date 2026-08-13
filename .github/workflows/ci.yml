@@ -23,9 +23,11 @@ jobs:
           name: automation-framework-compatibility
           path: reports/
       - name: Publish compatibility evidence to PassFail
-        if: ${{ github.event_name == 'workflow_dispatch' && vars.PASSFAIL_URL != '' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && vars.PASSFAIL_API_URL != '' }}
         env:
-          PASSFAIL_TEST_RESULTS_URL: ${{ vars.PASSFAIL_URL }}/api/evidence-reports
-          PASSFAIL_CHECK_EVALUATIONS_URL: ${{ vars.PASSFAIL_URL }}/api/check-evaluations
+          PASSFAIL_TEST_RESULTS_URL: ${{ vars.PASSFAIL_API_URL }}/evidence-reports
+          PASSFAIL_CHECK_EVALUATIONS_URL: ${{ vars.PASSFAIL_API_URL }}/check-evaluations
+          PASSFAIL_API_TOKEN: ${{ secrets.PASSFAIL_API_TOKEN }}
           PASSFAIL_SUBJECT_KEY: ${{ github.sha }}
+          PASSFAIL_UPLOAD_GENERATION: github-${{ github.run_id }}-${{ github.run_attempt }}
         run: npm run passfail:publish

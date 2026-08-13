@@ -6,6 +6,7 @@ import { basename, dirname, extname, relative, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { XMLParser } from "fast-xml-parser";
 import { workflowProvenance } from "./publish-coverage.mjs";
+import { passfailRequestHeaders } from "./publish-auth.mjs";
 
 const DEFAULT_ENDPOINT = "http://localhost:30081/api/evidence-reports";
 const DEFAULT_CHECK_ENDPOINT = "http://localhost:30081/api/check-evaluations";
@@ -855,11 +856,11 @@ async function publishEvidenceAttachments(envelope, evidenceEndpoint, environmen
     }
     const response = await fetchImpl(endpoint, {
       method: "POST",
-      headers: {
+      headers: passfailRequestHeaders(environment, {
         "content-type": "application/json",
         ...(environment.PASSFAIL_USER_ROLE ? { "x-passfail-role": environment.PASSFAIL_USER_ROLE } : {}),
         ...(environment.PASSFAIL_USER_ID ? { "x-passfail-actor": environment.PASSFAIL_USER_ID } : {})
-      },
+      }),
       body: JSON.stringify({
         artifactId: attachment.attachmentId,
         projectId: envelope.projectId,
@@ -952,7 +953,7 @@ export async function publishTestResults({ environment = process.env, fetchImpl 
     envelopes.push(envelope);
     const response = await fetchImpl(endpoint, {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: passfailRequestHeaders(environment, { "content-type": "application/json" }),
       body: JSON.stringify(envelope)
     });
     const body = await response.json().catch(() => ({}));
@@ -964,7 +965,7 @@ export async function publishTestResults({ environment = process.env, fetchImpl 
     const check = createTestCheckEvaluation({ envelopes, environment });
     const checkResponse = await fetchImpl(checkEvaluationsEndpoint(endpoint, environment), {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: passfailRequestHeaders(environment, { "content-type": "application/json" }),
       body: JSON.stringify(check)
     });
     evaluation = await checkResponse.json().catch(() => ({}));

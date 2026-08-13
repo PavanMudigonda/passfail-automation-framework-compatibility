@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { createEvidenceEnvelope, createTestCheckEvaluation, parseTestResult, publishTestResults } from "./publish-test-results.mjs";
+import { passfailRequestHeaders } from "./publish-auth.mjs";
 import { flattenFrameworkMatrix } from "../lib/frameworks.mjs";
 
 const evidenceEndpoint = process.env.PASSFAIL_TEST_RESULTS_URL ?? "http://localhost:30081/api/evidence-reports";
@@ -43,13 +44,13 @@ const checkEnvironment = {
   PASSFAIL_REPOSITORY_ID: process.env.PASSFAIL_REPOSITORY_ID ?? "passfail-automation-framework-compatibility",
   PASSFAIL_TEST_REPORT_NAME: process.env.PASSFAIL_TEST_REPORT_NAME ?? "Automation framework compatibility"
 };
-const check = await post(checkEndpoint, createTestCheckEvaluation({ envelopes, environment: checkEnvironment }));
+const check = await post(checkEndpoint, createTestCheckEvaluation({ envelopes, environment: checkEnvironment }), checkEnvironment);
 console.log(`Published ${envelopes.length} automation framework compatibility reports and check ${check.checkEvaluationId ?? "created"}`);
 
-async function post(endpoint, body) {
+async function post(endpoint, body, environment) {
   const response = await fetch(endpoint, {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: passfailRequestHeaders(environment, { "content-type": "application/json" }),
     body: JSON.stringify(body)
   });
   const responseBody = await response.json().catch(() => ({}));
