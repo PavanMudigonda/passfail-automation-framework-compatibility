@@ -1,0 +1,17 @@
+{
+  "name": "passfail-automation-framework-compatibility",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:generate": "node scripts/generate-compatibility-reports.mjs",
+    "test:ci": "npm run test:generate && node --test test/compatibility.test.mjs",
+    "passfail:publish": "npm run test:generate && node scripts/publish-matrix.mjs"
+  },
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^5.3.3"
+  }
+}

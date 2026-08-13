@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-08-10",
+  "basis": "Portable report capabilities and locally runnable framework examples",
+  "webAutomation": {
+    "topLevel": [
+      "Selenium",
+      "Playwright",
+      "Cypress",
+      "JavaScript Browser Testing",
+      "Puppeteer"
+    ],
+    "selenium": {
+      "Java": [
+        "Generic",
+        "TestNG",
+        "Cucumber",
+        "JUnit 5",
+        "JUnit 4",
+        "Selenide",
+        "JBehave",
+        "Serenity",
+        "Gauge"
+      ],
+      "NodeJS": [
+        "Generic",
+        "WebdriverIO",
+        "JestJS",
+        "Mocha JS",
+        "Cucumber JS",
+        "CodeceptJS",
+        "Nightwatch",
+        "Intern",
+        "Protractor",
+        "WD",
+        "TestCafe"
+      ],
+      "Python": [
+        "Generic",
+        "Robot",
+        "Pytest",
+        "Behave",
+        "Lettuce"
+      ],
+      "C#": [
+        "Generic",
+        "NUnit",
+        "SpecFlow",
+        "MBUnit",
+        "XUnit",
+        "PNUnit",
+        "MSTest",
+        "Reqnroll"
+      ],
+      "PHP": [
+        "Generic",
+        "PHPUnit",
+        "Behat",
+        "Codeception"
+      ],
+      "Ruby": [
+        "Generic",
+        "Capybara",
+        "Cucumber",
+        "RSpec"
+      ]
+    },
+    "playwright": {
+      "Java": ["Generic", "JUnit"],
+      "NodeJS": ["Generic"],
+      "C#": ["Generic", "MSTest", "NUnit", "XUnit", "Reqnroll"],
+      "Python": ["Generic", "Pytest", "Robot", "Behave"]
+    }
+  },
+  "mobileAutomation": {
+    "topLevel": [
+      "Appium",
+      "Espresso",
+      "XCUITest",
+      "Flutter",
+      "Detox",
+      "Smart TV",
+      "Maestro"
+    ],
+    "appium": {
+      "Java": [
+        "Generic",
+        "TestNG",
+        "JUnit 5",
+        "JUnit 4",
+        "Cucumber",
+        "Selenide",
+        "JBehave",
+        "Serenity"
+      ],
+      "Python": ["Generic", "Pytest", "Robot", "Behave", "Lettuce"],
+      "NodeJS": ["Generic", "WebdriverIO", "Nightwatch", "JestJS", "Mocha JS", "Cucumber JS"],
+      "C#": ["Generic", "NUnit", "MSTest", "XUnit", "SpecFlow", "Reqnroll"],
+      "Ruby": ["Generic", "Cucumber"],
+      "PHP": ["Generic", "PHPUnit"]
+    }
+  },
+  "existingRunnableExamples": {
+    "Cypress": "passfail-cypress-demo",
+    "Playwright NodeJS": "passfail-react-vite-demo",
+    "Puppeteer": "passfail-puppeteer-demo",
+    "Robot": "passfail-robot-framework-demo",
+    "Selenium C# NUnit": "passfail-selenium-csharp-nunit-demo",
+    "Selenium C# Reqnroll": "passfail-selenium-csharp-reqnroll-demo",
+    "Selenium Java Cucumber": "passfail-selenium-java-cucumber-demo",
+    "Selenium Java TestNG": "passfail-selenium-java-testng-demo",
+    "Selenium Python Pytest": "passfail-selenium-python-pytest-demo",
+    "WebdriverIO": "passfail-webdriverio-demo"
+  },
+  "legacyCompatibilityOnly": [
+    "Intern",
+    "Lettuce",
+    "MBUnit",
+    "PNUnit",
+    "Protractor",
+    "SpecFlow",
+    "WD"
+  ]
+}
