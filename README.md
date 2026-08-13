@@ -14,6 +14,12 @@ npm run passfail:publish
 
 GitHub Actions exposes the test job as the stable `PassFail Quality Gate` check. The default branch ruleset requires that exact GitHub Actions check before changes can merge.
 
+## Governance
+
+The `main` branch rejects deletion and force-pushes. Changes merge through pull requests with resolved review conversations and a successful `PassFail Quality Gate` published by the GitHub Actions App.
+
+Manual workflow dispatches publish all 91 generated reports and one aggregate regression check to PassFail. Evidence is bound to the exact Git commit and GitHub workflow run that produced it.
+
 The compatibility reports do not claim that remote or physical-device tests ran. Mobile, JavaScript browser, and Smart TV execution may require provider credentials and uploaded applications. Espresso, XCUITest, Flutter, Detox, and Maestro also require their native toolchains. Those runs should publish converted JUnit/TRX output through the same portable-report path.
 
 Legacy entries such as Intern, Protractor, WD, Lettuce, MBUnit, PNUnit, and SpecFlow remain represented as compatibility adapters; this repository does not revive or recommend their discontinued dependencies.
